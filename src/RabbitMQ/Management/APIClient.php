@@ -187,7 +187,7 @@ class APIClient
         $uri = sprintf('/api/queues/%s/%s', urlencode($queue->vhost), urlencode($queue->name));
 
         try {
-            $this->client->put($uri, array('Content-type' => 'application/json'), $queue->toJson())->send();
+            $this->client->put($uri, array('Content-type' => 'application/json'), $queue->toJson());
         } catch (RequestException $e) {
             if ($data = json_decode($e->getResponse()->getBody(true), true)) {
                 if (isset($data['reason']) && strpos($data['reason'], '406 PRECONDITION_FAILED') === 0) {
@@ -213,7 +213,7 @@ class APIClient
         try {
             $this->client->delete(
                 sprintf('/api/queues/%s/%s', urlencode($vhost), urlencode($name))
-            )->send();
+            );
         } catch (RequestException $e) {
             throw new RuntimeException('Unable to delete queue', $e->getCode(), $e);
         }
@@ -234,7 +234,7 @@ class APIClient
         try {
             $this->client->delete(
                 sprintf('/api/queues/%s/%s/contents', urlencode($vhost), urlencode($name))
-            )->send();
+            );
         } catch (RequestException $e) {
             throw new RuntimeException('Unable to purge queue', $e->getCode(), $e);
         }
@@ -261,7 +261,7 @@ class APIClient
         $uri = sprintf('/api/bindings/%s/e/%s/q/%s', urlencode($binding->vhost), urlencode($binding->source), urlencode($binding->destination));
 
         try {
-            $this->client->post($uri, array('Content-type' => 'application/json'), $binding->toJson())->send();
+            $this->client->post($uri, array('Content-type' => 'application/json'), $binding->toJson());
         } catch (RequestException $e) {
             throw new RuntimeException('Unable to add binding', $e->getCode(), $e);
         }
@@ -274,7 +274,7 @@ class APIClient
         $uri = sprintf('/api/bindings/%s/e/%s/q/%s/%s', urlencode($vhost), urlencode($exchange), urlencode($queue), urlencode($binding->properties_key));
 
         try {
-            $this->client->delete($uri)->send();
+            $this->client->delete($uri);
         } catch (RequestException $e) {
             throw new RuntimeException('Unable to delete binding', $e->getCode(), $e);
         }
@@ -296,7 +296,7 @@ class APIClient
     public function alivenessTest($vhost)
     {
         try {
-            $res = $this->client->get(sprintf('/api/aliveness-test/%s', urlencode($vhost)))->send()->getBody(true);
+            $res = $this->client->get(sprintf('/api/aliveness-test/%s', urlencode($vhost)))->getBody(true);
             $data = json_decode($res, true);
 
             if (!isset($data['status']) || $data['status'] !== 'ok') {
