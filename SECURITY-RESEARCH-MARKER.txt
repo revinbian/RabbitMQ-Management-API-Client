@@ -1,0 +1,13 @@
+SECURITY RESEARCH MARKER - BENIGN PROOF OF CONTROL
+
+This file is inert. It does nothing. Nothing in this repository executes,
+installs, or contacts anything.
+
+Purpose    : Defensive proof-of-control for a repo-jacking exposure affecting
+             the Packagist package vidaxl/rabbitmq-management-client, whose
+             source URL pointed at github.com/revinbian/RabbitMQ-Management-API-Client
+             while the username was unclaimed.
+Claimed on : 2026-09-19 (Asia/Tokyo)
+Claimed by : Independent security researcher
+Contact    : gaijindev@mail.instinct.com
+Marker     : rvb-poc-20260919-7f3a9c21
